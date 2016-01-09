@@ -50,5 +50,4 @@ dependencies {
 group = 'br.com.estudio89'
 version = '1.0'
 
-println rootProject.name
 
