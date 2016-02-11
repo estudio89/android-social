@@ -112,12 +112,13 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
             String email = acct.getEmail();
             String name = acct.getDisplayName();
             String token = acct.getIdToken();
+            String id = acct.getId();
 
             this.setLoginStatus(true);
             this.storeAuthData(name, email, token);
 
             if (this.listener != null) {
-                this.listener.onSocialAuthSuccess(googleLoginButton, getSocialAuthIdentifier(), token, email, name);
+                this.listener.onSocialAuthSuccess(googleLoginButton, getSocialAuthIdentifier(), token, email, name, id);
             }
         } else {
             if (this.listener != null) {

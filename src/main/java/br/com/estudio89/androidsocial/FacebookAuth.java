@@ -48,6 +48,9 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
     private String fbToken;
 
     @Nullable
+    private String userId;
+
+    @Nullable
     LoginButton fbLoginButton;
 
     private int loginBtnId;
@@ -115,6 +118,7 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
         Profile profile = Profile.getCurrentProfile();
         if (profile != null) {
             name = profile.getName();
+            userId = profile.getId();
             nameRequestFinished = true;
             notifyListenerAuthSuccess();
         }  else {
@@ -122,6 +126,7 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
                 @Override
                 protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
                     name = profile2.getName();
+                    userId = profile2.getId();
                     profileTracker.stopTracking();
                     nameRequestFinished = true;
                     notifyListenerAuthSuccess();
@@ -157,7 +162,7 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
         if (emailRequestFinished && nameRequestFinished && listener != null) {
             this.setLoginStatus(true);
             this.storeAuthData(name, email, fbToken);
-            listener.onSocialAuthSuccess(fbLoginButton, getSocialAuthIdentifier(), fbToken, email, name);
+            listener.onSocialAuthSuccess(fbLoginButton, getSocialAuthIdentifier(), fbToken, email, name, userId);
         }
     }
 

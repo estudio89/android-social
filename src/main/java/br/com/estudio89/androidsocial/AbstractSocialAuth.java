@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by luccascorrea on 1/7/16.
+ *
  */
 public abstract class AbstractSocialAuth implements SocialAuth {
     protected static final String SOCIAL_AUTH_PREFERENCES_FILE = "br.com.estudio89.social_auth";

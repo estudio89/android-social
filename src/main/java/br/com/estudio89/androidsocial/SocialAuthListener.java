@@ -13,7 +13,7 @@ public interface SocialAuthListener {
 
     void onSocialAuthFailed(View button, String socialAuthIdentifier, String message);
 
-    void onSocialAuthSuccess(View button, String socialAuthIdentifier, String socialAuthToken, String email, String name);
+    void onSocialAuthSuccess(View button, String socialAuthIdentifier, String socialAuthToken, String email, String name, String userId);
 
     void onSocialLogout(String socialAuthIdentifier);
 }
