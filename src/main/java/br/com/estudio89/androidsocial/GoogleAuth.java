@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.auth.api.Auth;
@@ -21,6 +22,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by luccascorrea on 1/7/16.
+ *
  */
 public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     GoogleApiClient googleApiClient;
@@ -28,7 +30,7 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     public static String GOOGLE_AUTH_SERVER_ID_STRING = "google_auth_server_id";
 
     @Nullable
-    private WeakReference<FragmentActivity> activityRef;
+    private WeakReference<AppCompatActivity> activityRef;
 
     @Nullable
     private SignInButton googleLoginButton;
@@ -40,8 +42,8 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     }
 
     @Override
-    public void initializeSDK(FragmentActivity activity) {
-        int serverIdRes = activity.getResources().getIdentifier(GOOGLE_AUTH_SERVER_ID_STRING, "string", activity.getPackageName());
+    public void initializeSDK(AppCompatActivity activity) {
+        int serverIdRes = activity.getResources().getIdentifier(GOOGLE_AUTH_SERVER_ID_STRING, "string", activity.getApplication().getPackageName());
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getString(serverIdRes))
                 .requestEmail()
@@ -53,7 +55,7 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     }
 
     @Override
-    public void setupLogin(@NonNull FragmentActivity activity, int loginBtnId) {
+    public void setupLogin(@NonNull AppCompatActivity activity, int loginBtnId) {
         this.loginBtnId = loginBtnId;
         googleLoginButton = (SignInButton) activity.findViewById(loginBtnId);
         googleLoginButton.setOnClickListener(this);
@@ -86,7 +88,10 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     }
 
     private void signIn() {
-        FragmentActivity activity = activityRef.get();
+        FragmentActivity activity = null;
+        if (activityRef != null) {
+            activity = activityRef.get();
+        }
         if (activity != null) {
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             activity.startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -115,7 +120,7 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
             String id = acct.getId();
 
             this.setLoginStatus(true);
-            this.storeAuthData(name, email, token);
+            this.storeAuthData(name, email, token, id);
 
             if (this.listener != null) {
                 this.listener.onSocialAuthSuccess(googleLoginButton, getSocialAuthIdentifier(), token, email, name, id);

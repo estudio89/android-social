@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,35 +15,72 @@ import java.util.List;
  */
 public class SocialAuthManager extends AbstractSocialAuth {
 
+
+    public static class Builder {
+        @NonNull private Context context;
+        @Nullable private SocialAuthListener listener;
+        private HashMap<String, Integer> buttonIds = new HashMap<>();
+
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setListener(@Nullable SocialAuthListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        public Builder setLoginButtonId(String socialNetworkIdentifier, int resId) {
+            buttonIds.put(socialNetworkIdentifier, resId);
+            return this;
+        }
+
+        public SocialAuthManager build() {
+            return new SocialAuthManager(context, listener, buttonIds);
+        }
+    }
+
     @NonNull
     private List<SocialAuth> socialAuths = new ArrayList<>();
-    private int[] loginButtonIds;
+    private HashMap<String, Integer> buttonIds = new HashMap<>();
 
-    public SocialAuthManager(@NonNull Context context, @Nullable SocialAuthListener listener, int[] loginButtonIds) {
+    protected SocialAuthManager(@NonNull Context context, @Nullable SocialAuthListener listener, HashMap<String, Integer> buttonIds) {
         super(context, listener);
-        this.loginButtonIds = loginButtonIds;
-        socialAuths.add(new FacebookAuth(context, listener));
-        socialAuths.add(new GoogleAuth(context, listener));
+        this.buttonIds = buttonIds;
+
+        if (buttonIds.containsKey("facebook")) {
+            socialAuths.add(new FacebookAuth(context, listener));
+        }
+
+        if (buttonIds.containsKey("google")) {
+            socialAuths.add(new GoogleAuth(context, listener));
+        }
+
+        if (buttonIds.containsKey("twitter")) {
+            socialAuths.add(new TwitterAuth(context, listener));
+        }
+
+        if (buttonIds.containsKey("linkedin")) {
+            socialAuths.add(new LinkedinAuth(context, listener));
+        }
 
     }
 
     @Override
-    public void initializeSDK(FragmentActivity activity) {
+    public void initializeSDK(AppCompatActivity activity) {
         for (SocialAuth socialAuth:socialAuths) {
             socialAuth.initializeSDK(activity);
         }
     }
 
-    public void setupLogin(FragmentActivity activity) {
+    public void setupLogin(AppCompatActivity activity) {
         setupLogin(activity, 0);
     }
 
     @Override
-    public void setupLogin(FragmentActivity activity, int loginBtnId) {
-        int idx = 0;
+    public void setupLogin(AppCompatActivity activity, int loginBtnId) {
         for (SocialAuth socialAuth:socialAuths) {
-            socialAuth.setupLogin(activity, loginButtonIds[idx]);
-            idx++;
+            socialAuth.setupLogin(activity, buttonIds.get(socialAuth.getSocialAuthIdentifier()));
         }
     }
 

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.facebook.AccessToken;
@@ -65,13 +65,13 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
     }
 
     @Override
-    public void initializeSDK(FragmentActivity activity) {
+    public void initializeSDK(AppCompatActivity activity) {
         FacebookSdk.sdkInitialize(activity.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
     }
 
     @Override
-    public void setupLogin(FragmentActivity activity, int loginBtnId) {
+    public void setupLogin(AppCompatActivity activity, int loginBtnId) {
         this.loginBtnId = loginBtnId;
         fbLoginButton = (LoginButton) activity.findViewById(loginBtnId);
         fbLoginButton.setReadPermissions("public_profile", "email");
@@ -161,7 +161,7 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
     private void notifyListenerAuthSuccess() {
         if (emailRequestFinished && nameRequestFinished && listener != null) {
             this.setLoginStatus(true);
-            this.storeAuthData(name, email, fbToken);
+            this.storeAuthData(name, email, fbToken, userId);
             listener.onSocialAuthSuccess(fbLoginButton, getSocialAuthIdentifier(), fbToken, email, name, userId);
         }
     }

@@ -2,15 +2,19 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        maven { url 'https://maven.fabric.io/public' } // Twitter
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+        classpath 'io.fabric.tools:gradle:1.+' // Twitter
     }
 }
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'io.fabric' // Twitter
+
 
 android {
     compileSdkVersion 23
@@ -33,6 +37,7 @@ android {
 repositories {
     jcenter()
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' } // Twitter
 }
 
 configurations {
@@ -43,8 +48,12 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-annotations:+'
-    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
-    compile 'com.google.android.gms:play-services-auth:8.3.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0' // Facebook
+    compile 'com.google.android.gms:play-services-auth:8.3.0' // Google
+    compile('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
+        transitive = true;
+    }
+//    compile fil
 }
 
 group = 'br.com.estudio89'

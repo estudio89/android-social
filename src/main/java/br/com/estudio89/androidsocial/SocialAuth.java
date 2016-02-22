@@ -2,7 +2,7 @@ package br.com.estudio89.androidsocial;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by luccascorrea on 1/7/16.
@@ -14,7 +14,7 @@ public interface SocialAuth {
      * This method should not depend on UI elements.
      * @param activity
      */
-    void initializeSDK(FragmentActivity activity);
+    void initializeSDK(AppCompatActivity activity);
 
     /**
      * Sets up the necessary steps for login.
@@ -22,7 +22,7 @@ public interface SocialAuth {
      * @param activity
      * @param loginBtnId
      */
-    void setupLogin(FragmentActivity activity, int loginBtnId);
+    void setupLogin(AppCompatActivity activity, int loginBtnId);
 
     /**
      * Must return a string used as the identifier for this social network. Ex: "facebook", "google", etc.

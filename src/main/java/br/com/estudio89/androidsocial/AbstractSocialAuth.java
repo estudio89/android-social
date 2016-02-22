@@ -16,9 +16,10 @@ public abstract class AbstractSocialAuth implements SocialAuth {
     protected static final String NAME_KEY = "name";
     protected static final String EMAIL_KEY = "email";
     protected static final String TOKEN_KEY = "token";
+    protected static final String USER_ID_KEY = "user_id";
 
     @NonNull
-    private Context context;
+    protected Context context;
 
     @Nullable
     protected SocialAuthListener listener;
@@ -31,7 +32,7 @@ public abstract class AbstractSocialAuth implements SocialAuth {
     /**
      * This method should be called whenever login is finished successfully, marking the user as logged in.
      *
-     * @param loggedIn
+     * @param loggedIn boolean
      */
     protected void setLoginStatus(boolean loggedIn) {
 
@@ -44,17 +45,18 @@ public abstract class AbstractSocialAuth implements SocialAuth {
     /**
      * Stores the authentication data. This method must be called by child classes right after
      * authentication was successful.
-     *
-     * @param name
+     *  @param name
      * @param email
      * @param token
+     * @param userId
      */
-    protected void storeAuthData(String name, String email, String token) {
+    protected void storeAuthData(String name, String email, String token, String userId) {
         SharedPreferences sharedPref = context.getSharedPreferences(SOCIAL_AUTH_PREFERENCES_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getSocialAuthIdentifier() + "." + NAME_KEY, name);
         editor.putString(getSocialAuthIdentifier() + "." + EMAIL_KEY, email);
         editor.putString(getSocialAuthIdentifier() + "." + TOKEN_KEY, token);
+        editor.putString(getSocialAuthIdentifier() + "." + USER_ID_KEY, userId);
         editor.commit();
     }
 
@@ -62,7 +64,7 @@ public abstract class AbstractSocialAuth implements SocialAuth {
      * Returns an array with the social authentication data.
      *
      * @return social authentication data where data[0] is the user's name, data[1] is the user's
-     * email address and data[2] is the token.
+     * email address, data[2] is the token and data[3] is the user's id.
      */
     public String[] getAuthData() {
         String[] authData = new String[3];
@@ -70,10 +72,12 @@ public abstract class AbstractSocialAuth implements SocialAuth {
         String name = sharedPref.getString(getSocialAuthIdentifier() + "." + NAME_KEY, null);
         String email = sharedPref.getString(getSocialAuthIdentifier() + "." + EMAIL_KEY, null);
         String token = sharedPref.getString(getSocialAuthIdentifier() + "." + TOKEN_KEY, null);
+        String userId = sharedPref.getString(getSocialAuthIdentifier() + "." + USER_ID_KEY, null);
         if (name != null && email != null && token != null) {
             authData[0] = name;
             authData[1] = email;
             authData[2] = token;
+            authData[3] = userId;
         }
 
         return authData;
@@ -100,8 +104,7 @@ public abstract class AbstractSocialAuth implements SocialAuth {
     @Override
     public boolean isLoggedIn() {
         SharedPreferences sharedPref = context.getSharedPreferences(SOCIAL_AUTH_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        boolean loggedIn = sharedPref.getBoolean(getSocialAuthIdentifier() + "." + LOGGED_IN_KEY, false);
-        return loggedIn;
+        return sharedPref.getBoolean(getSocialAuthIdentifier() + "." + LOGGED_IN_KEY, false);
     }
 
     @Override

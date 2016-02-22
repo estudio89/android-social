@@ -1,0 +1,2 @@
+- Antes de gerar o arquivo google-services.json, é preciso passar o SHA-1 gerado a partir da keystore utilizada (para debug e release).
+Olhar link: https://developers.google.com/android/guides/client-auth
