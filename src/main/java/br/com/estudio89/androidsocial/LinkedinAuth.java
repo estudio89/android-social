@@ -51,6 +51,7 @@ public class LinkedinAuth extends AbstractSocialAuth {
 
     @Override
     public void setupLogin(final AppCompatActivity activity, int loginBtnId) {
+        sessionManager = LISessionManager.getInstance(context);
         button = (Button) activity.findViewById(loginBtnId);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +61,6 @@ public class LinkedinAuth extends AbstractSocialAuth {
                 }
 
                 Scope scope = Scope.build(Scope.R_BASICPROFILE, Scope.R_EMAILADDRESS);
-
-                sessionManager = LISessionManager.getInstance(context);
 
                 sessionManager.init(activity, scope, new AuthListener() {
 

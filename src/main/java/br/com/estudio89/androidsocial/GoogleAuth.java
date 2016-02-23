@@ -2,6 +2,7 @@ package br.com.estudio89.androidsocial;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -137,11 +138,7 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
         }
     }
 
-    @Override
-    public void logout() {
-        if (!isLoggedIn()) {
-            return;
-        }
+    private void googleLogout() {
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
@@ -152,6 +149,29 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
                         GoogleAuth.super.logout();
                     }
                 });
+    }
+
+    @Override
+    public void logout() {
+        if (!isLoggedIn()) {
+            return;
+        }
+        if (!googleApiClient.isConnected()) {
+            googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                @Override
+                public void onConnected(Bundle bundle) {
+                    googleLogout();
+                }
+
+                @Override
+                public void onConnectionSuspended(int i) {
+
+                }
+            });
+        } else {
+            googleLogout();
+        }
+
 
     }
 }
