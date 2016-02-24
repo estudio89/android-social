@@ -47,9 +47,9 @@ configurations {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-annotations:+'
+    compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0' // Facebook
-    compile 'com.google.android.gms:play-services-auth:8.3.0' // Google
+    compile 'com.google.android.gms:play-services-auth:8.4.0' // Google
     compile('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
         transitive = true;
     }
