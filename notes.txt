@@ -49,6 +49,15 @@
 
 	    }
 
+	- Inside onDestroy do this:
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            if (socialAuthManager != null) {
+                socialAuthManager.onDestroy();
+            }
+        }
+
     - For logging out:
     	socialAuthManager.logout();
 

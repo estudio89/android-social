@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +45,7 @@ public class SocialAuthManager extends AbstractSocialAuth {
     @NonNull
     private List<SocialAuth> socialAuths = new ArrayList<>();
     private HashMap<String, Integer> buttonIds = new HashMap<>();
+    private Fragment fragment;
 
     protected SocialAuthManager(@NonNull Context context, @Nullable SocialAuthListener listener, HashMap<String, Integer> buttonIds) {
         super(context, listener);
@@ -74,13 +77,29 @@ public class SocialAuthManager extends AbstractSocialAuth {
     }
 
     public void setupLogin(AppCompatActivity activity) {
-        setupLogin(activity, 0);
+        setupLogin(activity, null);
+    }
+
+    public void setupLogin(Fragment fragment) {
+        this.fragment = fragment;
+        setupLogin((AppCompatActivity) fragment.getActivity(), null);
     }
 
     @Override
-    public void setupLogin(AppCompatActivity activity, int loginBtnId) {
+    public void setupLogin(AppCompatActivity activity, View loginBtn) {
+        View rootView = null;
+        if (this.fragment != null) {
+            rootView = fragment.getView();
+        }
+
         for (SocialAuth socialAuth:socialAuths) {
-            socialAuth.setupLogin(activity, buttonIds.get(socialAuth.getSocialAuthIdentifier()));
+            View view;
+            if (rootView != null) {
+                view = rootView.findViewById(buttonIds.get(socialAuth.getSocialAuthIdentifier()));
+            } else {
+                view = activity.findViewById(buttonIds.get(socialAuth.getSocialAuthIdentifier()));
+            }
+            socialAuth.setupLogin(activity, view);
         }
     }
 

@@ -44,8 +44,8 @@ public class TwitterAuth extends AbstractSocialAuth implements View.OnClickListe
     }
 
     @Override
-    public void setupLogin(AppCompatActivity activity, int loginBtnId) {
-        button = (TwitterLoginButton) activity.findViewById(loginBtnId);
+    public void setupLogin(AppCompatActivity activity, View loginBtn) {
+        button = (TwitterLoginButton) loginBtn;
 
         button.setOnClickListener(this);
         button.setCallback(new Callback<TwitterSession>() {

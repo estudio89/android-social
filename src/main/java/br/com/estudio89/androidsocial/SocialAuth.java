@@ -3,9 +3,11 @@ package br.com.estudio89.androidsocial;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 /**
  * Created by luccascorrea on 1/7/16.
+ *
  */
 public interface SocialAuth {
 
@@ -20,9 +22,9 @@ public interface SocialAuth {
      * Sets up the necessary steps for login.
      * This method may depend on UI elements.
      * @param activity
-     * @param loginBtnId
+     * @param loginBtn
      */
-    void setupLogin(AppCompatActivity activity, int loginBtnId);
+    void setupLogin(AppCompatActivity activity, View loginBtn);
 
     /**
      * Must return a string used as the identifier for this social network. Ex: "facebook", "google", etc.

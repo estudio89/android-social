@@ -46,13 +46,12 @@ public class LinkedinAuth extends AbstractSocialAuth {
     @Override
     public void initializeSDK(AppCompatActivity activity) {
         this.activity = activity;
-
     }
 
     @Override
-    public void setupLogin(final AppCompatActivity activity, int loginBtnId) {
+    public void setupLogin(final AppCompatActivity activity, View loginBtn) {
         sessionManager = LISessionManager.getInstance(context);
-        button = (Button) activity.findViewById(loginBtnId);
+        button = (Button) loginBtn;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
