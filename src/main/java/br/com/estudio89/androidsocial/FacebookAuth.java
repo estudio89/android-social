@@ -196,7 +196,7 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
     }
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         if (accessTokenTracker != null) {
             accessTokenTracker.stopTracking();
         }
