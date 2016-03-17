@@ -45,7 +45,6 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
                 .build();
 
         googleApiClient = new GoogleApiClient.Builder(activity)
-                .enableAutoManage(activity, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
@@ -165,9 +164,19 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        googleApiClient.disconnect();
-        googleApiClient.stopAutoManage(activity);
+    public void onStart() {
+        super.onStart();
+        if (googleApiClient != null) {
+            googleApiClient.connect();
+        }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (googleApiClient != null && googleApiClient.isConnected()) {
+            googleApiClient.disconnect();
+        }
+    }
+
 }

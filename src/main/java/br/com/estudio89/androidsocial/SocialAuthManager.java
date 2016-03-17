@@ -144,9 +144,16 @@ public class SocialAuthManager extends AbstractSocialAuth {
     }
 
     @Override
-    public void onDestroy() {
+    public void onStart() {
         for (SocialAuth socialAuth:socialAuths) {
-            socialAuth.onDestroy();
+            socialAuth.onStart();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        for (SocialAuth socialAuth:socialAuths) {
+            socialAuth.onStop();
         }
     }
 }

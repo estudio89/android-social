@@ -42,9 +42,13 @@ public interface SocialAuth {
     void onActivityResult(int requestCode, int resultCode, Intent data);
 
     /**
-     * Method that must be called inside the activity's onDestroy method.
+     * Method that must be called inside the activity's onStart method.
      */
-    void onDestroy();
+    void onStart();
+    /**
+     * Method that must be called inside the activity's onStop method.
+     */
+    void onStop();
     /**
      * @return true if the user is logged in with this social network or false otherwise.
      */

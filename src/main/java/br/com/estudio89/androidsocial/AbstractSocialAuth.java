@@ -108,6 +108,10 @@ public abstract class AbstractSocialAuth implements SocialAuth {
     }
 
     @Override
-    public void onDestroy() {
+    public void onStart() {
+    }
+
+    @Override
+    public void onStop() {
     }
 }
