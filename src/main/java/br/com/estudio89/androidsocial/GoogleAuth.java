@@ -160,6 +160,7 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
         } else {
             googleLogout();
         }
+        super.logout();
 
     }
 
