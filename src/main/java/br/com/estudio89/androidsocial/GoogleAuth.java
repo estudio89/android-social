@@ -101,8 +101,8 @@ public class GoogleAuth extends AbstractSocialAuth implements GoogleApiClient.On
     private void handleSignInResult(GoogleSignInResult result) {
         boolean wasLoggedOut = isLoggedIn();
 
-        GoogleSignInAccount acct = result.getSignInAccount();
-        if (result.isSuccess() && acct != null) {
+        if (result != null && result.isSuccess() && result.getSignInAccount() != null) {
+            GoogleSignInAccount acct = result.getSignInAccount();
             // Signed in successfully, show authenticated UI.
             String email = acct.getEmail();
             String name = acct.getDisplayName();
