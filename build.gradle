@@ -51,7 +51,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     compile 'com.android.support:support-annotations:23.+'
     //noinspection GradleDynamicVersion
-    compile 'com.facebook.android:facebook-android-sdk:4.+' // Facebook
+    compile 'com.facebook.android:facebook-android-sdk:4.13.1' // Facebook
     compile 'com.google.android.gms:play-services-auth:8.4.0' // Google
     compile('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
         transitive = true;
