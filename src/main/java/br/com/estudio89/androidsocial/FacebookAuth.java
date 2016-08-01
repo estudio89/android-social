@@ -121,13 +121,19 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
             profileTracker = new ProfileTracker() {
                 @Override
                 protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                    name = profile2.getName();
-                    userId = profile2.getId();
+                    if (profile2 != null) {
+                        name = profile2.getName();
+                        userId = profile2.getId();
+                        nameRequestFinished = true;
+                        notifyListenerAuthSuccess();
+                    } else {
+                        if (listener != null) {
+                            listener.onSocialAuthFailed(fbLoginButton, getSocialAuthIdentifier(), "Erro de autenticação.");
+                        }
+                    }
                     if (profileTracker != null) {
                         profileTracker.stopTracking();
                     }
-                    nameRequestFinished = true;
-                    notifyListenerAuthSuccess();
                 }
             };
             profileTracker.startTracking();
