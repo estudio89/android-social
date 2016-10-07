@@ -150,7 +150,10 @@ public class FacebookAuth extends AbstractSocialAuth implements View.OnClickList
                             JSONObject object,
                             GraphResponse response) {
                         // Optional because the user may not have granted the permission
-                        email = response.getJSONObject().optString("email");
+                        final JSONObject jsonObject = response.getJSONObject();
+                        if (jsonObject != null) {
+                            email = jsonObject.optString("email");
+                        }
                         emailRequestFinished = true;
 
                         notifyListenerAuthSuccess();
