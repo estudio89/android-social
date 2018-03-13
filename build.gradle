@@ -17,12 +17,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -38,6 +38,9 @@ repositories {
     jcenter()
     mavenCentral()
     maven { url 'https://maven.fabric.io/public' } // Twitter
+    maven {
+        url "https://maven.google.com"
+    }
 }
 
 configurations {
@@ -47,11 +50,11 @@ configurations {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:27.1.0'
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:support-annotations:25.3.1'
+    compile 'com.android.support:support-annotations:27.1.0'
     //noinspection GradleDynamicVersion
-    compile 'com.facebook.android:facebook-android-sdk:4.28.0' // Facebook
+    compile 'com.facebook.android:facebook-android-sdk:4.31.0' // Facebook
     compile 'com.google.android.gms:play-services-auth:8.4.0' // Google
     compile('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
         transitive = true;
@@ -60,6 +63,6 @@ dependencies {
 }
 
 group = 'br.com.estudio89'
-version = '1.0.7'
+version = '1.0.8'
 
 
