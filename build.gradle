@@ -5,14 +5,14 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' } // Twitter
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
         classpath 'io.fabric.tools:gradle:1.+' // Twitter
     }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'io.fabric' // Twitter
 
 
@@ -48,21 +48,21 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:support-annotations:27.1.0'
+    implementation 'com.android.support:support-annotations:27.1.0'
     //noinspection GradleDynamicVersion
-    compile 'com.facebook.android:facebook-android-sdk:4.31.0' // Facebook
-    compile 'com.google.android.gms:play-services-auth:8.4.0' // Google
-    compile('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
+    implementation 'com.facebook.android:facebook-android-sdk:4.31.0' // Facebook
+    implementation 'com.google.android.gms:play-services-auth:8.4.0' // Google
+    implementation('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
         transitive = true;
     }
 
 }
 
 group = 'br.com.estudio89'
-version = '1.0.8'
+version = '1.0.9'
 
 
