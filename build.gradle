@@ -56,15 +56,11 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.android.support:support-annotations:27.1.0'
     //noinspection GradleDynamicVersion
-    implementation 'com.facebook.android:facebook-android-sdk:4.39.0' // Facebook
-    implementation 'com.google.android.gms:play-services-auth:8.4.0' // Google
-    implementation('com.twitter.sdk.android:twitter:1.12.1@aar') { // Twitter
-        transitive = true;
-    }
-
+    implementation 'com.facebook.android:facebook-android-sdk:5.5.1' // Facebook
+    implementation 'com.google.android.gms:play-services-auth:16.0.1' // Google
 }
 
 group = 'br.com.estudio89'
-version = '1.0.12'
+version = '1.0.13'
 
 
