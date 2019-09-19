@@ -59,14 +59,6 @@ public class SocialAuthManager extends AbstractSocialAuth {
             socialAuths.add(new GoogleAuth(context, listener));
         }
 
-        if (buttonIds.containsKey("twitter")) {
-            socialAuths.add(new TwitterAuth(context, listener));
-        }
-
-        if (buttonIds.containsKey("linkedin")) {
-            socialAuths.add(new LinkedinAuth(context, listener));
-        }
-
     }
 
     @Override

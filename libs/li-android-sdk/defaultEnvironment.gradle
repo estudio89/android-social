@@ -1,7 +1,0 @@
-logger.lifecycle("Configuring using default environment (defaultEnvironment.gradle)...")
- 
-subprojects { 
-  repositories {
-    mavenCentral()
-  }
-}
